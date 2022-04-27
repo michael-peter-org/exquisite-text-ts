@@ -49,24 +49,24 @@
   }
 }
 
+/* the poem body has a fixed width */
 .poem-body {
   max-width: 800px;
   margin: auto;
 }
 
+/* the style for the vertical spacer element, renders \n as a line break */
 .render-newline {
   white-space: pre-line;
   font-size: 25px; /* hack, works with 18px font, lol */
 }
 
+/* makes a little space between each poem line */
 div.poem-line {
   margin-bottom: 0.5em;
 }
 
-div.poem-line {
-  margin-bottom: 0.5em;
-}
-
+/* removes the border of the content editable elements */
 [contenteditable] {
   outline: 0 solid transparent;
 }
