@@ -33,6 +33,11 @@ function App() {
         <div class="poem-line">a burning golden bird with no legs.</div>`
     );
 
+    // the poem title is similar I guess
+    const poemTitle = useRef<string>(
+        `<div class="poem-title">exquisite text #${Math.round(Math.random() * 100)}</div>`
+    );
+
     // an array in which each element is a string representing a line of the poem
     const [cumulativePoem, setCumulativePoem] = useState<string[]>([]);
 
@@ -46,8 +51,13 @@ function App() {
     const [buttonEnabled, setButtonEnabled, buttonRef] = useStateRef(true);
 
     // handles any change to the ContentEditable div object (user entered a new character or deleted one)
-    // we use this for poem body text
-    function handleChange(evt: { target: { value: string; }; }) {
+    // one for the poem title
+    function handlePoemTitleChange(evt: { target: { value: string; }; }) {
+        poemTitle.current = evt.target.value;
+    }
+
+    // one for the poem body
+    function handlePoemBodyChange(evt: { target: { value: string; }; }) {
         poemBody.current = evt.target.value;
         const poemParts = poemBody.current.split('</div>')
         // remove the initial div and any trailing spaces
@@ -92,12 +102,21 @@ function App() {
     return (
         <div className="App">
 
+            <div className="render-newline">{'\n'}</div>
+
+            <ContentEditable // TODO: figure out how to make this fixed length
+                html={poemTitle.current} // innerHTML of the editable div
+                disabled={false} // use true to disable edition
+                onChange={handlePoemTitleChange} // handle innerHTML change
+                className='poem-title'
+            />
+
             <div className="render-newline">{vertSpacerText}</div>
 
             <ContentEditable
                 html={poemBody.current} // innerHTML of the editable div
                 disabled={false} // use true to disable edition
-                onChange={handleChange} // handle innerHTML change
+                onChange={handlePoemBodyChange} // handle innerHTML change
                 onKeyDown={handleKeypress}
                 className='poem-body'
             />

@@ -55,6 +55,16 @@
   margin: auto;
 }
 
+/* the poem title has a fixed width and height (1 line) */
+/*.poem-title {*/
+/*  display: flex;*/
+/*  flex-shrink: 0;*/
+/*  flex-basis: 10em;*/
+/*  min-width: 100px;*/
+/*  word-break: break-all;*/
+/*  cursor: text;*/
+/*}*/
+
 /* the style for the vertical spacer element, renders \n as a line break */
 .render-newline {
   white-space: pre-line;
