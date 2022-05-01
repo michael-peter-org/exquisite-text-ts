@@ -55,6 +55,12 @@
   margin: auto;
 }
 
+/* the poem title */
+.poem-title {
+  outline: 0;
+  border: 0;
+}
+
 /* the poem title has a fixed width and height (1 line) */
 /*.poem-title {*/
 /*  display: flex;*/
@@ -79,4 +85,12 @@ div.poem-line {
 /* removes the border of the content editable elements */
 [contenteditable] {
   outline: 0 solid transparent;
+}
+
+/* changes the font inside the input element */
+input[type="text"]
+{
+  font-family: "Libre Baskerville", serif;
+  font-size: 18px;
+  text-align: center;
 }

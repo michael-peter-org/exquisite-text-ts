@@ -25,6 +25,7 @@ function App() {
     const maxCharsOnNewLine = 40;       // must have less than this many characters on 2nd line to make exquisite
     const introDivStringLength = 32;    // string length of default introductory div tag for each line in poem body
     const initVertSpacerText = '\n';    // newlines initially in the spacing div above the poem body
+    const poemTitleCharacterWidth = 50;
 
     // the poemBody is a useRef of type string, which will act as html content
     // for a ContentEditable div (specialized React object)
@@ -35,7 +36,8 @@ function App() {
 
     // the poem title is similar I guess
     const poemTitle = useRef<string>(
-        `<div class="poem-title">exquisite text #${Math.round(Math.random() * 100)}</div>`
+        // `<div class="poem-title">exquisite text #${Math.round(Math.random() * 100)}</div>`
+            `exquisite text #${Math.round(Math.random() * 100)}`
     );
 
     // an array in which each element is a string representing a line of the poem
@@ -71,6 +73,7 @@ function App() {
     function handleKeypress(e: { keyCode: number; ctrlKey: boolean; }) {
         // it triggers by pressing ctrl + enter (13), when the "Done Line" button is enabled
         // might not be necessary, but it's kind of nice
+        // note we use buttonRef instead of buttonEnabled because it gets the current value
         if (buttonRef.current && e.keyCode === 13 && e.ctrlKey) {
             makeExquisite();
         }
@@ -89,6 +92,7 @@ function App() {
             setVertSpacerText(vertSpacerText + '\n');             // sets the spacing text above the poem
         }
     }
+
     function finishExquisite() {
         // when the poem is probably done, we can end it by pulling back the curtain to reveal the whole thing at once
         // to do so here, we use array of lines that have been saved in the background, and reconstruct the whole thing
@@ -99,16 +103,18 @@ function App() {
         // presumably we should save the state of that poem somewhere...
         setCumulativePoem([]); // re-initialize the array?
     }
+
     return (
         <div className="App">
 
             <div className="render-newline">{'\n'}</div>
 
-            <ContentEditable // TODO: figure out how to make this fixed length
-                html={poemTitle.current} // innerHTML of the editable div
-                disabled={false} // use true to disable edition
-                onChange={handlePoemTitleChange} // handle innerHTML change
+            <input
+                type="text"
+                defaultValue={poemTitle.current}
+                onChange={handlePoemTitleChange}
                 className='poem-title'
+                size={poemTitleCharacterWidth}
             />
 
             <div className="render-newline">{vertSpacerText}</div>
