@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import ContentEditable from 'react-contenteditable';
+import Modal from 'react-modal';
 
 // this function allows us to get the most current value of a state variable
 // with the third output argument "ref"
@@ -25,13 +26,13 @@ function App() {
     const maxCharsOnNewLine = 40;       // must have less than this many characters on 2nd line to make exquisite
     const introDivStringLength = 32;    // string length of default introductory div tag for each line in poem body
     const initVertSpacerText = '\n';    // newlines initially in the spacing div above the poem body
-    const poemTitleCharacterWidth = 50;
+    const poemTitleCharWidth = 50;      // width of the poem title in characters
 
     // the poemBody is a useRef of type string, which will act as html content
     // for a ContentEditable div (specialized React object)
     const poemBody = useRef<string>(
-        `<div class="poem-line">Just another Tuesday. Suddenly the sky opened up and there it was:</div>
-        <div class="poem-line">a burning golden bird with no legs.</div>`
+        `<div class="poem-line">Replace this text with your own line and a half</div>
+        <div class="poem-line">of pure poetry!</div>`
     );
 
     // the poem title is similar I guess
@@ -51,6 +52,13 @@ function App() {
     // it toggles based on the suitability of the current poem body to be made exquisite
     // we need an additional buttonRef object that allows us to get its current state
     const [buttonEnabled, setButtonEnabled, buttonRef] = useStateRef(true);
+
+    // whether the modal help window is open
+    const [helpOpen, setHelpOpen] = useState<boolean>(false);
+
+    function toggleHelpModal() {
+        setHelpOpen(!helpOpen)
+    }
 
     // handles any change to the ContentEditable div object (user entered a new character or deleted one)
     // one for the poem title
@@ -107,6 +115,25 @@ function App() {
     return (
         <div className="App">
 
+            <header>
+                <button onClick={toggleHelpModal} id="help-button" className="icon" aria-label="Help">
+                    Help
+                </button>
+            </header>
+
+            <Modal
+                isOpen={helpOpen}
+                onRequestClose={toggleHelpModal}
+                contentLabel="Help Dialog Modal"
+            >
+                <button onClick={toggleHelpModal} className='center-button'>Close</button>
+                <div className='help-modal'>{'\n'}Complete a line and a half of poetry.{'\n'}
+                When your input is suitable, press the 'Done Line' button.{'\n'}
+                The first line will disappear, leaving the unfinished half-line behind.{'\n'}
+                Hand it over to someone else, and have them repeat this process.{'\n'}
+                No peaking!</div>
+            </Modal>
+
             <div className="render-newline">{'\n'}</div>
 
             <input
@@ -114,7 +141,7 @@ function App() {
                 defaultValue={poemTitle.current}
                 onChange={handlePoemTitleChange}
                 className='poem-title'
-                size={poemTitleCharacterWidth}
+                size={poemTitleCharWidth}
             />
 
             <div className="render-newline">{vertSpacerText}</div>

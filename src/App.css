@@ -61,15 +61,12 @@
   border: 0;
 }
 
-/* the poem title has a fixed width and height (1 line) */
-/*.poem-title {*/
-/*  display: flex;*/
-/*  flex-shrink: 0;*/
-/*  flex-basis: 10em;*/
-/*  min-width: 100px;*/
-/*  word-break: break-all;*/
-/*  cursor: text;*/
-/*}*/
+/* modal dialog */
+.help-modal {
+  text-align: center;
+  white-space: pre-line;
+  font-size: 18px;
+}
 
 /* the style for the vertical spacer element, renders \n as a line break */
 .render-newline {
@@ -93,4 +90,9 @@ input[type="text"]
   font-family: "Libre Baskerville", serif;
   font-size: 18px;
   text-align: center;
+}
+
+.center-button {
+  margin:0 auto;
+  display:block;
 }
