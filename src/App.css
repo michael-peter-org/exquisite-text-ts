@@ -1,6 +1,6 @@
 /* latin */
 @font-face {
-  font-family: 'Libre Baskerville';
+  font-family: 'Esteban', serif;
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/librebaskerville/v13/kmKnZrc3Hgbbcjq75U4uslyuy4kn0qNZaxM.woff2) format('woff2');
@@ -8,8 +8,7 @@
 }
 
 .App {
-  /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
-  font-family: "Libre Baskerville", serif;
+  font-family: 'Esteban', serif;
   font-size: 18px;
   text-align: center;
 }
